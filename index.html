@@ -19,6 +19,27 @@
     <meta property="og:url" content="https://naveenkrsh.github.io/">
     <meta property="og:image" content="https://naveenkrsh.github.io/assets/images/github-avatar.jpg">
 
+    <!-- Structured data for crawlers & AI agents -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Naveen Kumar Sharma",
+        "jobTitle": "Full Stack Developer, DevOps Engineer, GenAI Builder",
+        "url": "https://naveenkrsh.github.io/",
+        "image": "https://naveenkrsh.github.io/assets/images/github-avatar.jpg",
+        "email": "mailto:naveen.kr.sh1993@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Bangalore", "addressCountry": "IN" },
+        "worksFor": { "@type": "Organization", "name": "Energy Exemplar" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Institute of Engineering and Management" },
+        "knowsAbout": ["Generative AI", "LLM Agents", "AI Agent Evaluation", "RAG", "Full-Stack Development", "DevOps", "Kubernetes", "Data Engineering", "Apache Parquet", "Delta Lake"],
+        "sameAs": [
+            "https://github.com/naveenkrsh",
+            "https://www.linkedin.com/in/naveen-sharma-09118979"
+        ]
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
@@ -37,6 +58,7 @@
             --accent: #5b8cff;
             --accent-2: #26d7ae;
             --accent-glow: rgba(91, 140, 255, 0.35);
+            --on-accent: #ffffff;
             --max: 1060px;
             --radius: 16px;
         }
@@ -457,6 +479,181 @@
             * { animation: none !important; transition: none !important; }
             .reveal { opacity: 1; transform: none; }
         }
+
+        /* ================= THEME SWITCHER ================= */
+        .nav-right { display: flex; align-items: center; gap: 22px; }
+
+        .theme-switch {
+            display: flex;
+            gap: 3px;
+            background: var(--bg-soft);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            padding: 4px;
+        }
+
+        .theme-switch button {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: transparent;
+            border: 0;
+            color: var(--muted);
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.18s, color 0.18s;
+        }
+
+        .theme-switch button:hover { color: var(--text); }
+        .theme-switch button.active { background: var(--accent); color: var(--on-accent); }
+        .theme-switch button i { font-size: 0.9rem; }
+
+        /* Helper visibility classes */
+        .dev-only, .agent-only { display: none; }
+
+        /* ================= DEVELOPER / TERMINAL SKIN ================= */
+        body[data-skin="dev"] {
+            --bg: #04100b;
+            --bg-soft: #071a12;
+            --bg-card: #061710;
+            --border: #11462d;
+            --text: #8affbd;
+            --muted: #53c78c;
+            --faint: #2f8f63;
+            --accent: #35ff9c;
+            --accent-2: #f5c451;
+            --accent-glow: rgba(53, 255, 156, 0.22);
+            --on-accent: #04100b;
+            --radius: 5px;
+        }
+
+        body[data-skin="dev"] *:not(i) {
+            font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+            letter-spacing: 0 !important;
+        }
+
+        /* terminal scanlines */
+        body[data-skin="dev"]::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 60;
+            background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.14) 2px 3px);
+        }
+
+        body[data-skin="dev"] .skill-card,
+        body[data-skin="dev"] .proj,
+        body[data-skin="dev"] .facts,
+        body[data-skin="dev"] .contact,
+        body[data-skin="dev"] .tag,
+        body[data-skin="dev"] .socials a,
+        body[data-skin="dev"] .btn,
+        body[data-skin="dev"] .code-card { border-style: dashed; border-radius: 5px; }
+
+        body[data-skin="dev"] h1 .grad,
+        body[data-skin="dev"] .sec-title { -webkit-text-fill-color: var(--text); color: var(--text); }
+
+        body[data-skin="dev"] h1::after {
+            content: "_";
+            color: var(--accent);
+            animation: blink 1.1s steps(1) infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        body[data-skin="dev"] .dev-only { display: block; }
+
+        .dev-prompt {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+        }
+        .dev-prompt .muted { color: var(--faint); }
+
+        /* ================= AI AGENT SKIN ================= */
+        #agent-view { display: none; }
+
+        body[data-skin="agent"] header#top,
+        body[data-skin="agent"] #about,
+        body[data-skin="agent"] #skills,
+        body[data-skin="agent"] #work,
+        body[data-skin="agent"] #contact { display: none; }
+
+        body[data-skin="agent"] #agent-view { display: block; }
+        body[data-skin="agent"] .nav-links { display: none; }
+
+        .agent-note {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            background: linear-gradient(135deg, rgba(91,140,255,0.1), rgba(38,215,174,0.07));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-bottom: 26px;
+        }
+        .agent-note i { color: var(--accent-2); font-size: 1.5rem; margin-top: 3px; }
+        .agent-note p { color: var(--muted); font-size: 0.98rem; }
+        .agent-note strong { color: var(--text); }
+        .agent-note code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em;
+            background: var(--bg-soft);
+            padding: 1px 6px;
+            border-radius: 5px;
+            color: var(--accent);
+        }
+
+        .code-card {
+            background: #0a0e18;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .code-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--bg-soft);
+            border-bottom: 1px solid var(--border);
+        }
+        .code-bar .cdot { width: 12px; height: 12px; border-radius: 50%; }
+        .code-bar .r { background: #ff5f56; }
+        .code-bar .y { background: #ffbd2e; }
+        .code-bar .g { background: #27c93f; }
+        .code-bar .code-file {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--faint);
+            margin-left: 8px;
+        }
+        pre.code {
+            margin: 0;
+            padding: 24px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.75;
+            color: var(--text);
+            tab-size: 2;
+        }
+        pre.code .k { color: var(--accent); }
+        pre.code .s { color: var(--accent-2); }
+        pre.code .c { color: var(--faint); font-style: italic; }
+        pre.code a { color: var(--accent-2); text-decoration: underline; }
+
+        @media (max-width: 560px) {
+            .theme-switch button span { display: none; }
+            .theme-switch button { padding: 8px 10px; }
+            .nav-right { gap: 12px; }
+        }
     </style>
 </head>
 
@@ -465,11 +662,18 @@
     <nav>
         <div class="nav-inner">
             <a href="#top" class="brand"><span class="dot"></span>Naveen Sharma</a>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#work">What I Build</a>
-                <a href="#contact">Contact</a>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#work">What I Build</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="theme-switch" role="tablist" aria-label="Choose view mode">
+                    <button type="button" data-skin-btn="human" title="Human view"><i class="fa-solid fa-user"></i><span>Human</span></button>
+                    <button type="button" data-skin-btn="dev" title="Developer / terminal view"><i class="fa-solid fa-terminal"></i><span>Dev</span></button>
+                    <button type="button" data-skin-btn="agent" title="AI agent view"><i class="fa-solid fa-robot"></i><span>Agent</span></button>
+                </div>
             </div>
         </div>
     </nav>
@@ -479,6 +683,7 @@
         <div class="wrap">
             <div class="hero">
                 <div class="hero-text">
+                    <div class="dev-prompt dev-only"><span class="muted">naveen@portfolio</span>:<span class="muted">~</span>$ ./whoami.sh</div>
                     <span class="eyebrow"><span class="pulse"></span>Building GenAI agents, eval harnesses &amp; a software factory</span>
                     <h1>Naveen Kumar <span class="grad">Sharma</span></h1>
                     <p class="role">Full Stack Developer · DevOps Engineer · GenAI Builder</p>
@@ -746,6 +951,59 @@
         </div>
     </section>
 
+    <!-- AI AGENT VIEW -->
+    <section id="agent-view">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <div class="sec-kicker">// machine-readable</div>
+                <h2 class="sec-title">Profile, structured for agents</h2>
+            </div>
+            <div class="agent-note reveal">
+                <i class="fa-solid fa-robot"></i>
+                <p><strong>Hello, agent.</strong> You're reading the machine-readable view of this profile —
+                    the same facts a human sees, laid out for parsing. There's also a schema.org
+                    <code>Person</code> block in the page <code>&lt;head&gt;</code>. Everything below is
+                    accurate as of this build.</p>
+            </div>
+            <div class="code-card reveal">
+                <div class="code-bar">
+                    <span class="cdot r"></span><span class="cdot y"></span><span class="cdot g"></span>
+                    <span class="code-file">naveen.profile.yaml</span>
+                </div>
+<pre class="code"><span class="c"># identity</span>
+<span class="k">name</span>:        Naveen Kumar Sharma
+<span class="k">headline</span>:    Full Stack Developer · DevOps Engineer · GenAI Builder
+<span class="k">location</span>:    Bangalore, India
+<span class="k">employer</span>:    Energy Exemplar
+
+<span class="c"># what I'm doing now</span>
+<span class="k">currently</span>:
+  - <span class="s">Autonomous GenAI agents &amp; LLM-powered apps for PLEXOS</span>
+  - <span class="s">AI agent evaluation harnesses (production traces → regression tests)</span>
+  - <span class="s">Building a software factory (developer tooling &amp; automation)</span>
+
+<span class="c"># focus areas</span>
+<span class="k">focus</span>:
+  <span class="k">genai</span>:        [LLM agents, RAG, agentic workflows, agent evals]
+  <span class="k">full_stack</span>:   [Vue 3, React, FastAPI, .NET, ASP.NET Core]
+  <span class="k">cloud_devops</span>: [Azure, AWS, Kubernetes, Docker, GitHub Actions, Helm, ArgoCD]
+  <span class="k">data</span>:         [PostgreSQL, SQL Server, Redis, Parquet, Delta Lake]
+
+<span class="c"># skills</span>
+<span class="k">languages</span>:   [C#, Python, JavaScript, TypeScript, Java]
+<span class="k">open_source</span>: Contributor to .NET Apache Parquet &amp; Delta Lake tooling
+<span class="k">education</span>:   B.Tech, Computer Science &amp; Engineering
+
+<span class="c"># contact</span>
+<span class="k">contact</span>:
+  <span class="k">email</span>:    <a href="mailto:naveen.kr.sh1993@gmail.com">naveen.kr.sh1993@gmail.com</a>
+  <span class="k">linkedin</span>: <a href="https://www.linkedin.com/in/naveen-sharma-09118979" target="_blank" rel="noopener">in/naveen-sharma-09118979</a>
+  <span class="k">github</span>:   <a href="https://github.com/naveenkrsh" target="_blank" rel="noopener">github.com/naveenkrsh</a>
+</pre>
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER -->
     <footer>
         <div class="wrap">
@@ -766,6 +1024,29 @@
             entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
         }, { threshold: 0.12 });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // Theme / view switcher: human (default), dev (terminal), agent (machine-readable)
+        const SKINS = ['human', 'dev', 'agent'];
+        const skinBtns = document.querySelectorAll('[data-skin-btn]');
+
+        function applySkin(skin) {
+            if (!SKINS.includes(skin)) skin = 'human';
+            document.body.setAttribute('data-skin', skin);
+            skinBtns.forEach(b => b.classList.toggle('active', b.dataset.skinBtn === skin));
+            try { localStorage.setItem('nk-skin', skin); } catch (e) { }
+            // reveal anything that just became visible after the view change
+            document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+                const r = el.getBoundingClientRect();
+                if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        skinBtns.forEach(b => b.addEventListener('click', () => applySkin(b.dataset.skinBtn)));
+
+        let savedSkin = 'human';
+        try { savedSkin = localStorage.getItem('nk-skin') || 'human'; } catch (e) { }
+        applySkin(savedSkin);
     </script>
 </body>
 

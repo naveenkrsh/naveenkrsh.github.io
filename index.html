@@ -9,7 +9,7 @@
     <meta name="description"
         content="Naveen Kumar Sharma — Full Stack Developer, DevOps Engineer, and GenAI builder based in Bangalore. Building autonomous AI agents and LLM-powered applications.">
     <meta name="author" content="Naveen Kumar Sharma">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
     <!-- Social / preview -->
     <meta property="og:title" content="Naveen Kumar Sharma — Full Stack & GenAI Engineer">
@@ -17,7 +17,7 @@
         content="Full Stack Developer, DevOps Engineer, and GenAI builder. Building autonomous AI agents and LLM-powered applications.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://naveenkrsh.github.io/">
-    <meta property="og:image" content="https://naveenkrsh.github.io/assets/images/github-avatar.jpg">
+    <meta property="og:image" content="https://naveenkrsh.github.io/assets/images/linkedin-photo.jpg">
 
     <!-- Structured data for crawlers & AI agents -->
     <script type="application/ld+json">
@@ -27,7 +27,7 @@
         "name": "Naveen Kumar Sharma",
         "jobTitle": "Full Stack Developer, DevOps Engineer, GenAI Builder",
         "url": "https://naveenkrsh.github.io/",
-        "image": "https://naveenkrsh.github.io/assets/images/github-avatar.jpg",
+        "image": "https://naveenkrsh.github.io/assets/images/linkedin-photo.jpg",
         "email": "mailto:naveen.kr.sh1993@gmail.com",
         "address": { "@type": "PostalAddress", "addressLocality": "Bangalore", "addressCountry": "IN" },
         "worksFor": { "@type": "Organization", "name": "Energy Exemplar" },
@@ -649,6 +649,59 @@
         pre.code .c { color: var(--faint); font-style: italic; }
         pre.code a { color: var(--accent-2); text-decoration: underline; }
 
+        /* machine-vision visual */
+        .vision-card {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 26px;
+        }
+        .vision-frame {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #0a0e18;
+        }
+        .vision-img { width: 100%; height: 100%; object-fit: cover; filter: saturate(1.05) contrast(1.04); }
+        .vision-brackets { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+        .vision-brackets path { fill: none; stroke: var(--accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
+        .vision-box {
+            position: absolute; inset: 15%;
+            border: 1.5px solid var(--accent-2);
+            box-shadow: 0 0 12px rgba(38, 215, 174, 0.55);
+            pointer-events: none;
+        }
+        .vision-tag {
+            position: absolute; top: -21px; left: -1.5px;
+            background: var(--accent-2); color: #04100b;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; font-weight: 700;
+            padding: 2px 7px; white-space: nowrap; border-radius: 3px 3px 0 0;
+        }
+        .vision-scan {
+            position: absolute; left: 0; right: 0; top: 4%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            box-shadow: 0 0 10px var(--accent);
+            animation: scan 3.2s ease-in-out infinite;
+        }
+        @keyframes scan { 0%, 100% { top: 4%; } 50% { top: 94%; } }
+        .vision-read { list-style: none; display: grid; gap: 13px; font-family: 'JetBrains Mono', monospace; }
+        .vision-read li { display: flex; gap: 14px; font-size: 0.9rem; }
+        .vision-read .vk { color: var(--faint); min-width: 104px; }
+        .vision-read .vk::before { content: "\25B8 "; color: var(--accent); }
+        .vision-read .vv { color: var(--text); }
+        @media (max-width: 560px) {
+            .vision-frame { margin: 0 auto; }
+            .vision-card { justify-content: center; }
+        }
+
         @media (max-width: 560px) {
             .theme-switch button span { display: none; }
             .theme-switch button { padding: 8px 10px; }
@@ -671,7 +724,7 @@
                 </div>
                 <div class="theme-switch" role="tablist" aria-label="Choose view mode">
                     <button type="button" data-skin-btn="human" title="Human view"><i class="fa-solid fa-user"></i><span>Human</span></button>
-                    <button type="button" data-skin-btn="dev" title="Developer / terminal view"><i class="fa-solid fa-terminal"></i><span>Dev</span></button>
+                    <button type="button" data-skin-btn="dev" title="Terminal view"><i class="fa-solid fa-terminal"></i><span>Terminal</span></button>
                     <button type="button" data-skin-btn="agent" title="AI agent view"><i class="fa-solid fa-robot"></i><span>Agent</span></button>
                 </div>
             </div>
@@ -713,7 +766,7 @@
                     </div>
                 </div>
                 <div class="avatar-wrap">
-                    <img class="avatar" src="./assets/images/github-avatar.jpg" alt="Naveen Kumar Sharma">
+                    <img class="avatar" src="./assets/images/linkedin-photo.jpg" alt="Naveen Kumar Sharma">
                 </div>
             </div>
         </div>
@@ -964,6 +1017,26 @@
                     the same facts a human sees, laid out for parsing. There's also a schema.org
                     <code>Person</code> block in the page <code>&lt;head&gt;</code>. Everything below is
                     accurate as of this build.</p>
+            </div>
+            <div class="vision-card reveal">
+                <div class="vision-frame">
+                    <img class="vision-img" src="./assets/images/linkedin-photo.jpg" alt="Naveen Kumar Sharma">
+                    <div class="vision-scan"></div>
+                    <svg class="vision-brackets" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M3,22 L3,3 L22,3" />
+                        <path d="M78,3 L97,3 L97,22" />
+                        <path d="M97,78 L97,97 L78,97" />
+                        <path d="M22,97 L3,97 L3,78" />
+                    </svg>
+                    <div class="vision-box"><span class="vision-tag">entity: human · 0.99</span></div>
+                </div>
+                <ul class="vision-read">
+                    <li><span class="vk">detected</span><span class="vv">Naveen Kumar Sharma</span></li>
+                    <li><span class="vk">role</span><span class="vv">full-stack · devops · genai</span></li>
+                    <li><span class="vk">building</span><span class="vv">agents · evals · software factory</span></li>
+                    <li><span class="vk">location</span><span class="vv">Bangalore, India</span></li>
+                    <li><span class="vk">confidence</span><span class="vv">1.00</span></li>
+                </ul>
             </div>
             <div class="code-card reveal">
                 <div class="code-bar">

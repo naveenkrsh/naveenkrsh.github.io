@@ -59,6 +59,7 @@
             --accent-2: #26d7ae;
             --accent-glow: rgba(91, 140, 255, 0.35);
             --on-accent: #ffffff;
+            --nav-bg: rgba(11, 15, 26, 0.72);
             --max: 1060px;
             --radius: 16px;
         }
@@ -104,7 +105,7 @@
             top: 0;
             z-index: 50;
             backdrop-filter: blur(12px);
-            background: rgba(11, 15, 26, 0.72);
+            background: var(--nav-bg);
             border-bottom: 1px solid var(--border);
         }
 
@@ -512,6 +513,40 @@
         .theme-switch button.active { background: var(--accent); color: var(--on-accent); }
         .theme-switch button i { font-size: 0.9rem; }
 
+        /* light / dark toggle (Human mode only) */
+        #mode-toggle {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            background: var(--bg-soft);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.18s, border-color 0.18s;
+        }
+        #mode-toggle:hover { color: var(--text); border-color: var(--accent); }
+        body:not([data-skin="human"]) #mode-toggle { display: none; }
+
+        /* Human — light palette */
+        body[data-skin="human"][data-mode="light"] {
+            --bg: #f5f8fd;
+            --bg-soft: #e9eff8;
+            --bg-card: #ffffff;
+            --border: #dbe3f0;
+            --text: #0f1a2e;
+            --muted: #45546e;
+            --faint: #76859d;
+            --accent: #3a6ff0;
+            --accent-2: #0ca585;
+            --accent-glow: rgba(58, 111, 240, 0.20);
+            --on-accent: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.82);
+        }
+        body[data-skin="human"][data-mode="light"] .avatar { border-color: rgba(15, 26, 46, 0.08); }
+
         /* Helper visibility classes */
         .dev-only, .agent-only { display: none; }
 
@@ -652,13 +687,14 @@
         /* machine-vision visual */
         .vision-card {
             display: flex;
-            gap: 30px;
+            flex-direction: column;
+            gap: 18px;
             align-items: center;
-            flex-wrap: wrap;
+            text-align: center;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 28px;
+            padding: 30px 28px;
             margin-bottom: 26px;
         }
         .vision-frame {
@@ -692,11 +728,14 @@
             animation: scan 3.2s ease-in-out infinite;
         }
         @keyframes scan { 0%, 100% { top: 4%; } 50% { top: 94%; } }
-        .vision-read { list-style: none; display: grid; gap: 13px; font-family: 'JetBrains Mono', monospace; }
-        .vision-read li { display: flex; gap: 14px; font-size: 0.9rem; }
-        .vision-read .vk { color: var(--faint); min-width: 104px; }
-        .vision-read .vk::before { content: "\25B8 "; color: var(--accent); }
-        .vision-read .vv { color: var(--text); }
+        .vision-caption {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--faint);
+            max-width: 440px;
+            line-height: 1.6;
+        }
+        .vision-caption::before { content: "// "; color: var(--accent); }
         @media (max-width: 560px) {
             .vision-frame { margin: 0 auto; }
             .vision-card { justify-content: center; }
@@ -727,6 +766,7 @@
                     <button type="button" data-skin-btn="dev" title="Terminal view"><i class="fa-solid fa-terminal"></i><span>Terminal</span></button>
                     <button type="button" data-skin-btn="agent" title="AI agent view"><i class="fa-solid fa-robot"></i><span>Agent</span></button>
                 </div>
+                <button type="button" id="mode-toggle" title="Toggle light / dark" aria-label="Toggle light or dark mode"><i class="fa-solid fa-moon"></i></button>
             </div>
         </div>
     </nav>
@@ -1028,15 +1068,9 @@
                         <path d="M97,78 L97,97 L78,97" />
                         <path d="M22,97 L3,97 L3,78" />
                     </svg>
-                    <div class="vision-box"><span class="vision-tag">entity: human · 0.99</span></div>
+                    <div class="vision-box"><span class="vision-tag">human · 0.99</span></div>
                 </div>
-                <ul class="vision-read">
-                    <li><span class="vk">detected</span><span class="vv">Naveen Kumar Sharma</span></li>
-                    <li><span class="vk">role</span><span class="vv">full-stack · devops · genai</span></li>
-                    <li><span class="vk">building</span><span class="vv">agents · evals · software factory</span></li>
-                    <li><span class="vk">location</span><span class="vv">Bangalore, India</span></li>
-                    <li><span class="vk">confidence</span><span class="vv">1.00</span></li>
-                </ul>
+                <p class="vision-caption">vision model · subject identified → emitting structured profile below</p>
             </div>
             <div class="code-card reveal">
                 <div class="code-bar">
@@ -1120,6 +1154,26 @@
         let savedSkin = 'human';
         try { savedSkin = localStorage.getItem('nk-skin') || 'human'; } catch (e) { }
         applySkin(savedSkin);
+
+        // Light / dark toggle (applies to Human view)
+        const modeToggle = document.getElementById('mode-toggle');
+        function applyMode(mode) {
+            mode = (mode === 'light') ? 'light' : 'dark';
+            document.body.setAttribute('data-mode', mode);
+            modeToggle.innerHTML = (mode === 'light')
+                ? '<i class="fa-solid fa-sun"></i>'
+                : '<i class="fa-solid fa-moon"></i>';
+            try { localStorage.setItem('nk-mode', mode); } catch (e) { }
+        }
+        modeToggle.addEventListener('click', () => {
+            applyMode(document.body.getAttribute('data-mode') === 'light' ? 'dark' : 'light');
+        });
+        let savedMode = null;
+        try { savedMode = localStorage.getItem('nk-mode'); } catch (e) { }
+        if (!savedMode) {
+            savedMode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+        }
+        applyMode(savedMode);
     </script>
 </body>
 
